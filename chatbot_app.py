@@ -2,16 +2,25 @@ import streamlit as st
 from openai import OpenAI
 import os
 
+# Initialize OpenAI client
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
+# Streamlit UI setup
+st.set_page_config(page_title="AI Chatbot using NLP", page_icon="💬", layout="centered")
 st.title("💬 AI Chatbot using NLP")
-st.markdown("This chatbot uses OpenAI GPT model to interact intelligently with users.")
+st.markdown(
+    "<p style='color: gray;'>This chatbot uses OpenAI's GPT model to interact intelligently with users.</p>",
+    unsafe_allow_html=True
+)
 
+# Initialize session state for chat history
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-user_input = st.text_input("You:", "")
+# User input box
+user_input = st.text_input("Type your message here 👇", "")
 
+# Handle sending message
 if st.button("Send"):
     if user_input:
         st.session_state.messages.append({"role": "user", "content": user_input})
@@ -22,8 +31,15 @@ if st.button("Send"):
         reply = response.choices[0].message.content
         st.session_state.messages.append({"role": "assistant", "content": reply})
 
+# Display chat history in a styled chat format
 for msg in st.session_state.messages:
     if msg["role"] == "user":
-        st.write(f"**You:** {msg['content']}")
+        st.markdown(
+            f"<div style='background-color:#DCF8C6; padding:10px; border-radius:10px; margin:5px 0; text-align:right;'><b>You:</b> {msg['content']}</div>",
+            unsafe_allow_html=True
+        )
     else:
-        st.write(f"**Chatbot:** {msg['content']}")
+        st.markdown(
+            f"<div style='background-color:#E6E6FA; padding:10px; border-radius:10px; margin:5px 0; text-align:left;'><b>Chatbot:</b> {msg['content']}</div>",
+            unsafe_allow_html=True
+        )
