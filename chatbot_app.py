@@ -35,11 +35,34 @@ if st.button("Send"):
 for msg in st.session_state.messages:
     if msg["role"] == "user":
         st.markdown(
-            f"<div style='background-color:#DCF8C6; padding:10px; border-radius:10px; margin:5px 0; text-align:right;'><b>You:</b> {msg['content']}</div>",
-            unsafe_allow_html=True
+            f"""
+            <div style="
+                background-color:#222831;
+                color:#00ADB5;
+                padding:12px;
+                border-radius:12px;
+                margin-bottom:10px;
+                font-family: 'Segoe UI', sans-serif;
+                font-size: 16px;">
+                <b>You:</b> {msg['content']}
+            </div>
+            """,
+            unsafe_allow_html=True,
         )
     else:
         st.markdown(
-            f"<div style='background-color:#E6E6FA; padding:10px; border-radius:10px; margin:5px 0; text-align:left;'><b>Chatbot:</b> {msg['content']}</div>",
-            unsafe_allow_html=True
+            f"""
+            <div style="
+                background-color:#393E46;
+                color:#EEEEEE;
+                padding:12px;
+                border-radius:12px;
+                margin-bottom:10px;
+                font-family: 'Segoe UI', sans-serif;
+                font-size: 16px;">
+                <b>Chatbot:</b> {msg['content']}
+            </div>
+            """,
+            unsafe_allow_html=True,
         )
+
